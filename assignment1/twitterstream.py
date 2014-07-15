@@ -1,12 +1,13 @@
 import oauth2 as oauth
 import urllib2 as urllib
+import json
 
 # See assignment1.html instructions or README for how to get these credentials
 
-api_key = "<Enter api key>"
-api_secret = "<Enter api secret>"
-access_token_key = "<Enter your access token key here>"
-access_token_secret = "<Enter your access token secret here>"
+api_key = "idB3X5sdbEc3AgEuW8yCfR2on"
+api_secret = "R6GLsHrRx60U6bMrGaoEyD8RgSMqGQn4woeYkCmmLmtDrV4FQS"
+access_token_key = "171599591-yAOxqWgwAJnF1NJNYy68pGLHlE9IRKFzGFVmFL4T"
+access_token_secret = "bkpD7WeKFnyXhgPRLH0IpAQwOODr6yhzz4pBeOL8VP5P7"
 
 _debug = 0
 
@@ -51,11 +52,23 @@ def twitterreq(url, method, parameters):
   return response
 
 def fetchsamples():
-  url = "https://stream.twitter.com/1/statuses/sample.json"
+  url = "https://stream.twitter.com/1.1/statuses/sample.json"
+  # url = "https://api.twitter.com/1.1/search/tweets.json?q=microsoft"
   parameters = []
   response = twitterreq(url, "GET", parameters)
   for line in response:
     print line.strip()
 
+def fetchTweetText():
+  url = "https://stream.twitter.com/1.1/statuses/sample.json?language=en"
+  parameters = []
+  response = twitterreq(url, "GET", parameters)
+  for line in response:
+    try:
+      print json.loads(line.strip())['text'].replace('\n', ' ').encode('utf-8')
+    except KeyError:
+      pass
+
 if __name__ == '__main__':
   fetchsamples()
+  # fetchTweetText()
