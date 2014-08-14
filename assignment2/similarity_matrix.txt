@@ -1,0 +1,6 @@
+19
+
+select *, sum(m1.count * m2.count)
+from ( select * from frequency where docid='10080_txt_crude' ) m1
+join ( select * from frequency where docid='17035_txt_earn' ) m2 on m2.term = m1.term
+group by m1.term, m2.term

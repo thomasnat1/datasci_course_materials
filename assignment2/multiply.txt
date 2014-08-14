@@ -1,0 +1,8 @@
+2874
+SELECT `rowid`,* FROM `Frequency` WHERE 'count' IS > '5' ORDER BY `rowid` ASC LIMIT 0, 50000;
+
+select m1.row_num, m2.col_num, sum(m1.value*m2.value)
+from frequency m1
+where 
+join b m2 on m2.row_num = m1.col_num
+group by m1.row_num, m2.col_num
